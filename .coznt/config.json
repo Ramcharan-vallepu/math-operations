@@ -1,9 +1,9 @@
 {
   "serverUrl": "http://localhost:3029",
-  "projectId": "aYh2Os-oX5M-X65SL8zCd",
+  "projectId": "vzzUi7thXkUSkXJqzJCUe",
   "apiKeyRef": {
     "kind": "env",
-    "name": "COZNT_API_KEY_AYH2OS_OX5M_X65SL8ZCD"
+    "name": "COZNT_API_KEY_VZZUI7THXKUSKXJQZJCUE"
   },
   "promptHook": {
     "installed": false,
