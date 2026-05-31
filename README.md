@@ -9,7 +9,14 @@
 ## Implementation
 
 - Core service: `src/math_operations/service.py`
-- API endpoint: `POST /calculate` in `src/math_operations/api.py`
+- API endpoints in `src/math_operations/api.py`:
+  - `POST /calculate`
+  - `POST /tasks`
+  - `GET /tasks` (supports `?status=...`)
+  - `PATCH /tasks/:id` (merge-patch style partial updates)
+  - `DELETE /tasks/:id`
+- Tasks domain logic: `src/math_operations/tasks.py`
+- Postgres migration: `db/migrations/001_create_tasks.sql`
 - Tests: `tests/`
 
 ## Run API
