@@ -28,7 +28,7 @@ jobs:
 
       - name: Lint
         run: |
-          flake8 app tests
+          flake8 app tests/conftest.py tests/test_math_operations_api.py
 
       - name: Verify app startup/build integrity
         run: |

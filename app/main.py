@@ -30,7 +30,11 @@ def success(operation: str, result: float) -> dict[str, Any]:
     return {"operation": operation, "result": result}
 
 
-def error_payload(code: str, message: str, details: Any | None = None) -> dict[str, Any]:
+def error_payload(
+    code: str,
+    message: str,
+    details: Any | None = None,
+) -> dict[str, Any]:
     payload: dict[str, Any] = {"error": {"code": code, "message": message}}
     if details is not None:
         payload["error"]["details"] = details
@@ -41,7 +45,11 @@ def error_payload(code: str, message: str, details: Any | None = None) -> dict[s
 async def validation_exception_handler(_: Request, exc: RequestValidationError) -> JSONResponse:
     return JSONResponse(
         status_code=422,
-        content=error_payload("VALIDATION_ERROR", "Invalid request payload.", exc.errors()),
+        content=error_payload(
+            "VALIDATION_ERROR",
+            "Invalid request payload.",
+            exc.errors(),
+        ),
     )
 
 
@@ -58,7 +66,10 @@ async def http_exception_handler(_: Request, exc: HTTPException) -> JSONResponse
 async def unhandled_exception_handler(_: Request, __: Exception) -> JSONResponse:
     return JSONResponse(
         status_code=500,
-        content=error_payload("INTERNAL_SERVER_ERROR", "An unexpected server error occurred."),
+        content=error_payload(
+            "INTERNAL_SERVER_ERROR",
+            "An unexpected server error occurred.",
+        ),
     )
 
 
@@ -92,6 +103,8 @@ def power(payload: PowerRequest) -> dict[str, Any]:
 @app.post("/sqrt")
 def sqrt(payload: SqrtRequest) -> dict[str, Any]:
     if payload.value < 0:
-        raise HTTPException(status_code=400, detail="Square root of a negative number is not allowed.")
+        raise HTTPException(
+            status_code=400,
+            detail="Square root of a negative number is not allowed.",
+        )
     return success("sqrt", math.sqrt(payload.value))
-

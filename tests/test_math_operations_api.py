@@ -8,7 +8,6 @@ Assumption:
 
 from __future__ import annotations
 
-import json
 from typing import Any
 
 import pytest
@@ -172,7 +171,7 @@ def test_malformed_json_payloads(endpoint: str) -> None:
     malformed = '{"a": 10, "b": }'
     resp = client.post(
         endpoint,
-        data=malformed,
+        content=malformed,
         headers={"content-type": "application/json"},
     )
     assert resp.status_code in (400, 422)
@@ -240,7 +239,8 @@ def test_openapi_schema_is_available_and_contains_all_paths() -> None:
         assert path in body["paths"], f"{path} missing from OpenAPI paths"
         assert "post" in body["paths"][path], f"{path} missing POST schema"
 
-    # Optional contract-level assertion: each operation should advertise JSON payloads.
+    # Optional contract-level assertion.
+    # Each operation should advertise JSON payloads.
     for path in ("/add", "/subtract", "/multiply", "/divide", "/power", "/sqrt"):
         post_spec = body["paths"][path]["post"]
         request_body = post_spec.get("requestBody", {})
@@ -252,4 +252,3 @@ def test_openapi_docs_ui_is_served() -> None:
     resp = client.get("/docs")
     assert resp.status_code == 200
     assert "text/html" in resp.headers.get("content-type", "")
-
